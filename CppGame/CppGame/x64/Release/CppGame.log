@@ -1,0 +1,2 @@
+﻿  win32_platform.cpp
+LINK : fatal error LNK1104: cannot open file 'D:\SaiHarish_Data\DirectX_Games\DirectXGame\CppGame\x64\Release\CppGame.exe'
