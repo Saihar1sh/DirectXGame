@@ -1,5 +1,5 @@
 #include "utils.cpp"
-#include <Windows.h>
+#include <windows.h>
 
 global_variable bool gameRunning = true;
 
@@ -14,6 +14,8 @@ struct Render_State
 global_variable Render_State render_state;
 
 #include "renderer.cpp"
+#include "platform_common.cpp"
+#include "game.cpp"
 
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -74,22 +76,71 @@ int WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nSho
 
 	HDC hdc = GetDC(window);
 
+	Input input = {};
+
 	while (gameRunning)
 	{
 		//Input
 		MSG message;
+
+		for (int i = 0; i < Button_Count; i++)
+		{
+			input.buttons[i].changed = false;
+		}
+
 		while (PeekMessage(&message, window, 0, 0, PM_REMOVE))
 		{
-			TranslateMessage(&message);
-			DispatchMessage(&message);
+			switch (message.message)
+			{
+				case WM_KEYUP:
+				case WM_KEYDOWN: 
+				{
+					u32 vk_code = (u32)message.wParam;
+					bool is_down = ((message.lParam & (1 << 31)) == 0);
+
+					switch (vk_code)
+					{
+						case VK_UP:
+						{
+							input.buttons[Button_Up].is_down = is_down;
+							input.buttons[Button_Up].changed = true;
+						}
+						break;
+						case VK_DOWN:
+						{
+							input.buttons[Button_Down].is_down = is_down;
+							input.buttons[Button_Down].changed = true;
+						}
+						break;
+						case VK_RIGHT:
+						{
+							input.buttons[Button_Right].is_down = is_down;
+							input.buttons[Button_Right].changed = true;
+						}
+						break;
+						case VK_LEFT:
+						{
+							input.buttons[Button_Left].is_down = is_down;
+							input.buttons[Button_Left].changed = true;
+						}
+						break;
+						default:
+							break;
+					}
+				}
+				break;
+				default:
+				{
+					TranslateMessage(&message);
+					DispatchMessage(&message);
+				}
+				break;
+			}
+
 		}
 
 		//Simulate
-		clear_screen(0x9ce79c);
-		//draw_rect_in_pixels(50, 50, 500, 500, 0x000000);
-		draw_rect(0, 0, 2, 2, 0x000000);
-		draw_rect(3, 2, 4, 25, 0x000000);
-		draw_rect(-3, -2, 4, 25, 0x000000);
+		simulate_game(&input);
 
 		//Rendering
 		StretchDIBits(hdc, 0, 0, render_state.width, render_state.height, 0, 0, render_state.width, render_state.height, render_state.memory, &render_state.bitmap_Info, DIB_RGB_COLORS,SRCCOPY);
