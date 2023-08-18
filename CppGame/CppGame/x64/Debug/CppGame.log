@@ -3,4 +3,4 @@ D:\SaiHarish_Data\DirectX_Games\DirectXGame\CppGame\CppGame\renderer.cpp(79,9): 
 D:\SaiHarish_Data\DirectX_Games\DirectXGame\CppGame\CppGame\renderer.cpp(80,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 D:\SaiHarish_Data\DirectX_Games\DirectXGame\CppGame\CppGame\renderer.cpp(81,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 D:\SaiHarish_Data\DirectX_Games\DirectXGame\CppGame\CppGame\renderer.cpp(82,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\SaiHarish_Data\DirectX_Games\DirectXGame\CppGame\CppGame\game.cpp(13,5): error C2065: 'pressed': undeclared identifier
+  CppGame.vcxproj -> D:\SaiHarish_Data\DirectX_Games\DirectXGame\CppGame\x64\Debug\CppGame.exe

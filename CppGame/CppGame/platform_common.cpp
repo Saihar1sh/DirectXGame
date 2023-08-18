@@ -1,6 +1,7 @@
 struct Button_State 
 {
-	bool is_down, changed;
+	bool is_down;
+	bool changed;
 };
 enum
 {
@@ -9,7 +10,7 @@ enum
 	Button_Left,
 	Button_Right,
 
-	Button_Count	// must be the last for count
+	Button_Count,	// must be the last for count
 };
 
 struct Input
